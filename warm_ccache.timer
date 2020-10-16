@@ -1,0 +1,9 @@
+[Unit]
+Description=Warms ccache with PV and VTKm latest master
+
+[Timer]
+OnCalendar=Mon..Fri 15:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

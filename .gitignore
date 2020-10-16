@@ -1,0 +1,7 @@
+warm_ccache
+.gdb_history
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+warm_ccache.service
