@@ -28,6 +28,7 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
+#define N_THREADS 6
 
 typedef struct {
   char* wd;
@@ -54,7 +55,7 @@ int main(int argc, char** argv) {
     Command git_checkout = {.wd = p.path_src, .args = (char*[]){ "git", "checkout", p.branch, NULL }};
     Command git_pull     = {.wd = p.path_src, .args = (char*[]){ "git", "pull", NULL }};
     Command cmake_conf   = {.wd = p.path_build, .args = (char*[]){ "cmake", ".", NULL}};
-    Command cmake_build  = {.wd = p.path_build, .args = (char*[]){ "cmake", "--build", ".", "-j", NULL}};
+    Command cmake_build  = {.wd = p.path_build, .args = (char*[]){ "cmake", "--build", ".", "-jTHREADS", NULL}};
 
     printf("Building %s\n", p.path_src);
 
