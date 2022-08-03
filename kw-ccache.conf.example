@@ -1,0 +1,7 @@
+# vim : ft=conf
+# SourcePath config_preset+build_preset [branch]
+#
+# Ex:
+#
+# /home/vicente/Projects/VTKm/vtk-m default+default master
+# /home/vicente/Projects/VTKm/vtk-m cuda+cuda develop

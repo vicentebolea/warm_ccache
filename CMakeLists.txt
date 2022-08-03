@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name
-project(warmer)
+project(kw-ccache)
 
-# add the executable
-add_executable(warm_ccache warm_ccache.c warm_ccache.service warm_ccache.timer)
+install(
+  FILES kw-ccache
+  PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE
+  GROUP_WRITE GROUP_READ WORLD_EXECUTE WORLD_WRITE WORLD_READ
+  DESTINATION /usr/local/bin
+  )
 
-install(TARGETS warm_ccache DESTINATION /usr/local/bin COMPONENT binary)
-install(FILES warm_ccache.service warm_ccache.timer DESTINATION /etc/systemd/user COMPONENT config)
+install(FILES kw-ccache.conf.example TYPE SYSCONF)

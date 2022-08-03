@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# @author Vicente Bolea <vicente.bolea@kitware.com>
+
+# Format of config file:
+# # This a comment
+#
+# /home/vicente/vtk-m cuda+default master
+# ...
+# /home/vicente/vtk bench+bench develop
+set -xe
+
+declare -r CONFIG_FILE="$HOME/.kw-ccache.conf"
+declare -r DEFAULT_BRANCH="master"
+
+function exec_cmds()
+{
+  local path="$1"
+  local preset_cnf="$2"
+  local preset_bld="$3"
+  local branch="$4"
+
+  git -C "$path" checkout --recurse-submodules "$branch"
+  git -C "$path" pull
+  git -C "$path" submodule update
+
+  rm -rf "${path}-build" || true
+  cmake --preset "$preset_cnf" "$path"
+  (cd "$path"; cmake --build --preset default)
+}
+
+while read -r dir preset branch
+do
+  # Skip comments or empty lines
+  grep -Eq '^(#|$)' <<<"$dir" && continue
+
+  preset_cnf=${preset%+*}
+  preset_bld=${preset#*+}
+  branch=${branch:-$DEFAULT_BRANCH}
+
+  exec_cmds "$dir" "$preset_cnf" "$preset_bld" "$branch"
+done < "$CONFIG_FILE"

@@ -1,6 +1,0 @@
-[Unit]
-Description=Populates CCache with the latest master for PV and VTKm
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/warm_ccache
